@@ -43,6 +43,7 @@ PATIENT_DATA_FILE = get_data_path()
 # Function to save patient data to CSV with improved error handling and validation
 def save_patient_data(patient_name, patient_age, selected_symptoms, predicted_disease, medications, diet, workout, precautions):
     try:
+        # Use local time instead of UTC to match the patient's actual check-in time
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         
         # Create a dataframe for the new record
@@ -530,60 +531,12 @@ with tab2:
             st.info("Try using the Disease Prediction tab to create new records.")
     else:
         st.info("No patient records file exists yet. Use the Disease Prediction tab to analyze symptoms and save records.")
-    
-    # Add option to clear records (with confirmation)
-    if os.path.exists(PATIENT_DATA_FILE):
-        st.markdown("### Manage Records")
-        if st.button("Clear All Patient Records", use_container_width=True):
-            confirm = st.checkbox("I understand this will permanently delete all patient records")
-            if confirm:
-                try:
-                    # Remove the files
-                    os.remove(PATIENT_DATA_FILE)
-                    excel_file = PATIENT_DATA_FILE.replace('.csv', '.xlsx')
-                    if os.path.exists(excel_file):
-                        os.remove(excel_file)
-                    st.success("All patient records have been cleared.")
-                    st.experimental_rerun()
-                except Exception as e:
-                    st.error(f"Error clearing records: {str(e)}")
-
-# Add information about Streamlit Cloud deployment
-with st.expander("Deployment Information"):
-    st.markdown("""
-    ## Deployment Information
-    
-    **About Data Storage:**
-    
-    When running locally, this application stores patient records in a temporary directory at:
-    ```
-    {}
-    ```
-    
-    When deployed to Streamlit Cloud, records are stored in the `.streamlit` folder. 
-    
-    **Important Notes for Streamlit Cloud Deployment:**
-    
-    1. Records will be reset whenever you redeploy your app on Streamlit Cloud.
-    2. All users of your deployed app share the same patient records database.
-    3. For production use with persistent storage, consider connecting to an external database.
-    
-    **Requirements for deployment:**
-    Make sure these packages are in your requirements.txt file:
-    ```
-    streamlit
-    pandas
-    scikit-learn
-    xgboost
-    joblib
-    openpyxl  # Optional: for Excel export
-    ```
-    """.format(PATIENT_DATA_FILE))
 
 # Footer
 st.markdown("""
 <div class="footer">
     <p>MediScan Disease Prediction System v2.0</p>
+    <p>Developed by kalyan chakravarthy and his team</p>
     <p>© {}</p>
 </div>
-""".format(datetime.now().year), unsafe_allow_html=True) 
+""".format(datetime.now().year), unsafe_allow_html=True)
