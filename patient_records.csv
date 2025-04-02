@@ -1,0 +1,2 @@
+Timestamp,Patient Name,Patient Age,Symptoms,Predicted Disease,Medications,Diet Recommendations,Workout Recommendations,Precautions
+2025-03-31 14:25:12,kalyan,21," back_pain,  abdominal_pain,  blackheads,  chest_pain",Acne,"['Antibiotics', 'Pain relievers', 'Antihistamines', 'Corticosteroids', 'Topical treatments']","['Acne Diet', 'Low-Glycemic Diet', 'Hydration', 'Fruits and vegetables', 'Probiotics']",Consume a balanced diet,"bath twice, avoid fatty spicy food, drink plenty of water, avoid too many products"
